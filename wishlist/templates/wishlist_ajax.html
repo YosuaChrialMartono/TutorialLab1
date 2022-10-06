@@ -1,0 +1,80 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>wishlist</title>
+    <link rel="stylesheet" href="{% static 'css/tutorial.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+
+
+<body>
+
+    {% block content %}
+    <div id="main">
+        <div class="navbar">
+            <h5>Nama: {{nama}} </h5>
+            <button type="button" class="btn btn-outline-warning"><a href="/">home</a></button>
+            <button class="button2"><a href="{% url 'wishlist:logout' %}">Logout</a></button>
+        </div>
+
+        <div class="container">
+            <div class="row pt-5">
+                <table class="table table-hover" id="'table1">
+                    <tbody>
+                        <tr>
+                            <td >Nama Barang</td>
+                            <td >Harga Barang</td>
+                            <td >Deskripsi</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-12 text-center">
+                    
+                    <div class="content-data mt-4" data-url="{% url 'wishlist:tutorial_data' %}">Data will come here</div>
+                    <button class="btn btn-primary btn-get-data">Get JSON data from Django</button>
+                </div>
+            </div>
+        </div>
+        <div class="last_login">
+            <h5>Sesi terakhir login: {{ last_login }}</h5>
+        </div>
+    </div>
+    {% endblock content %}
+    {% block scripts %}
+    <script>
+        $('.btn-get-data').on('click', function(){
+            $.ajax({
+                url: $('.content-data').data('url'),
+                type: 'GET',
+                dataType: 'json',
+                success: function(resp){
+                    var html = '';
+                    //loop through json array
+                    $(resp).each(function (index, value) {
+                        html += "<tr><td>" + value.fields.nama_barang + "</td><td>" + value.fields.harga_barang + "</td><td>" + value.fields.deskripsi + "</td></tr>" //append datas in tr
+                    })
+                    $("#table1 tbody").append(html)
+                },
+                error: function(resp){
+                    console.log('something went wrong');
+                }
+            });
+        });
+
+    </script>
+    {% endblock scripts %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/JavaScript" src="js/script.js"></script>
+    <script>
+        $.getJSON("../json/", function (data, status) {
+            alert("Data: " + data.nama_barang + "\nStatus: " + status)
+        },
+        );
+        function tambahkan() {
+            var x = parseInt(document.getElementById("number1").value);
+            var y = parseInt(document.getElementById("number2").value);
+            var z = x + y;
+            document.getElementById("hasil").innerHTML = z;
+        }
+
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>wishlist</title>
+    <link rel="stylesheet" href="{% static 'css/tutorial.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+
+
+<body>
+
+    <div id="main">
+        <form>
+            <h3>Kalkulator Penambahan </h3>
+            Angka Pertama: <input type="text" id="number1" />
+            Angka Kedua: <input type="text" id="number2" />
+            <input type="button" name="submit" value="Submit" onclick="tambahkan();" />
+            <p id ="hasil"></p>
+        </form>
+        
+        <div class="last_login">
+            <h5>Sesi terakhir login: {{ last_login }}</h5>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
